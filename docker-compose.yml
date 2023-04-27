@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  producer-member:
+    hostname: dispenseMmember
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - shaper-collector
+    ports:
+      - "8081:8081"
+  consumer-member:
+    hostname: workermachine
+    build:
+      context:  C:\Users\IraZ\OneDrive\Рабочий стол\workerMachine
+      dockerfile: Dockerfile
+    depends_on:
+      - producer-member
+    ports:
+      - "8082:8082"
+  consumer-member-2:
+    hostname: workermachine
+    build:
+      context: C:\Users\IraZ\OneDrive\Рабочий стол\ExampleWorkerMachine\workerMachine
+      dockerfile: Dockerfile
+    depends_on:
+      - producer-member
+    ports:
+      - "8083:8083"
+  shaper-collector:
+    hostname: shaper
+    build:
+      context: C:\Users\IraZ\OneDrive\Рабочий стол\Грид\shaper_collector
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
